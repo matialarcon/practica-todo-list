@@ -4,13 +4,13 @@ import { todoContext } from "./context/todoContext"
 function App() {
   return (
     <>
-      <header>
-        <h1>TODO List</h1>
-      </header>
-
-      <main>
-        <CreateTodo />
-      </main>
+      <section className="todoapp">
+        <header className="header">
+          <h1>todo</h1>
+          <CreateTodo />
+        </header>
+        <Todos />
+      </section>
     </>
   )
 }
@@ -25,8 +25,30 @@ function CreateTodo() {
       dispatch({type: 'ADD_TODO', title: title})
       setTitle('')
     }}>
-      <input type="text" placeholder="¿Qué quieres hacer?" value={title} onChange={(event) => setTitle(event.target.value)} className="title-todo-input" name="add-todo-input"/>
+      <input type="text" placeholder="¿Qué quieres hacer?" value={title} onChange={(event) => setTitle(event.target.value)} className="new-todo" name="add-todo-input" autoFocus/>
     </form>
+  )
+}
+
+function Todos() {
+  const { todos, dispatch } = useContext(todoContext)
+
+  if (todos.length === 0) return null
+
+  return(
+    <section className="main">
+      <ul className="todo-list">
+        {todos.map(todo => (
+          <li key={todo.id} className={todo.completed ? 'completed' : ''}>
+            <div className="view">
+              <input type="checkbox" className="toggle" checked={todo.completed} onChange={() => dispatch({ type: 'TOGGLE_TODO', id: todo.id})}/>
+              <label>{todo.title}</label>
+              <button className="destroy" onClick={() => dispatch({ type: 'REMOVE_TODO', id: todo.id})}></button>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </section>
   )
 }
 
