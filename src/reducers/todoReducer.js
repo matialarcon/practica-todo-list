@@ -19,6 +19,17 @@ export const todoReducer = (state, action) => {
 
                 return i
             })
+        case 'EDIT_TODO':
+            return state.map(i => {
+                if (i.id === id) {
+                    return {
+                        ...i,
+                        title: title
+                    }
+                }
+
+                return i
+            })
         case 'REMOVE_TODO':
             return state.filter(i => i.id !== id)
         default:
