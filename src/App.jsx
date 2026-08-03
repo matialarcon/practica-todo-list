@@ -28,7 +28,7 @@ function App() {
         </header>
         <Todos filterSelected={filterSelected}/>
         <footer className="footer">
-          <Footer setFilterSelected={setFilterSelected}/>
+          <Footer filterSelected={filterSelected} setFilterSelected={setFilterSelected}/>
         </footer>
       </section>
     </>
@@ -111,7 +111,7 @@ function Todos({ filterSelected }) {
   )
 }
 
-function Footer({ setFilterSelected }) {
+function Footer({ filterSelected, setFilterSelected }) {
   const { todos, dispatch } = useContext(todoContext)
   const pendingCount = todos.filter(todo => !todo.completed).length
   const completedCount = todos.filter(todo => todo.completed).length
@@ -131,7 +131,7 @@ function Footer({ setFilterSelected }) {
       </span>
 
       <div>
-        <Filters setFilterSelected={setFilterSelected} />
+        <Filters filterSelected={filterSelected} setFilterSelected={setFilterSelected} />
       </div>
 
       {
@@ -145,12 +145,12 @@ function Footer({ setFilterSelected }) {
   )
 }
 
-function Filters({ setFilterSelected }) {
+function Filters({ filterSelected, setFilterSelected }) {
   return(
     <ul className="filters">
       {filterOptions.map(option => (
         <li key={option.id}>
-          <a href="#" onClick={() => setFilterSelected(option.name)}>
+          <a href="#" className={filterSelected === option.name ? 'selected' : ''} onClick={() => setFilterSelected(option.name)}>
             {option.name}
           </a>
         </li>
