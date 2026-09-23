@@ -15,7 +15,9 @@ function App() {
           <h1>todo</h1>
           <CreateTodo />
         </header>
-        <Todos filterSelected={filterSelected}/>
+        <main>
+          <Todos filterSelected={filterSelected}/>
+        </main>
         <footer className="footer">
           <Footer filterSelected={filterSelected} setFilterSelected={setFilterSelected}/>
         </footer>

@@ -40,14 +40,14 @@ export function Todos({ filterSelected }) {
                 {filteredTodos.map(todo => (
                     <li key={todo.id} className={todo.completed ? 'completed' : ''}>
                         <div className="view">
-                            <input type="checkbox" className="toggle" checked={todo.completed} onChange={() => dispatch({ type: 'TOGGLE_TODO', id: todo.id})}/>
+                            <input type="checkbox" className="toggle" checked={todo.completed} onChange={() => dispatch({ type: 'TOGGLE_TODO', id: todo.id})} id={`toggle${todo.id}`}/>
                             {editTodoId === todo.id ? (
                             <form onSubmit={submitEdit}>
                                 <input type="text" className="new-todo" name="edit-todo-input" value={editTodoTitle} onChange={(event) => setEditTodoTitle(event.target.value)} onBlur={submitEdit} autoFocus/>
                             </form>
                             ) : (
                             <>
-                                <label onDoubleClick={() => editingTodo(todo)}>{todo.title}</label>
+                                <label onDoubleClick={() => editingTodo(todo)} htmlFor={`toggle${todo.id}`} style={{ cursor: 'pointer' }}>{todo.title}</label>
                                 <button className="destroy" onClick={() => dispatch({ type: 'REMOVE_TODO', id: todo.id})}></button>
                             </>
                             )}
